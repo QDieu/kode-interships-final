@@ -1,0 +1,1 @@
+export {SplashScreenTemplate} from './splash-screen-template'

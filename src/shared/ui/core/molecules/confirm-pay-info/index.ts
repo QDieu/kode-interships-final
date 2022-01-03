@@ -1,0 +1,1 @@
+export {ConfirmPayInfo} from './confirm-pay-info'

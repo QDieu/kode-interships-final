@@ -1,0 +1,1 @@
+export {ConfrimPayConnector} from './confrim-pay-connector'

@@ -1,0 +1,1 @@
+export {AuthOtpTemplate} from './auth-otp-template'

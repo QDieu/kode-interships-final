@@ -1,0 +1,1 @@
+export {NameCard} from  './nameCard'

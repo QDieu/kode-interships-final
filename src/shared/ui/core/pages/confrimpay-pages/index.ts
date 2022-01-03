@@ -1,0 +1,1 @@
+export {ConfrimpayPages} from './confrimpay-pages'

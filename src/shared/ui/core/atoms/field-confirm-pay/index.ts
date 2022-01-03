@@ -1,0 +1,1 @@
+export {FieldConfirmPay} from './field-confirm-pay'

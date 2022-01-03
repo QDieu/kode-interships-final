@@ -1,0 +1,1 @@
+export {AuthPhoneTemplate} from './auth-phone-template'

@@ -1,0 +1,9 @@
+export { CategoryPages } from './category-pages';
+export { PayformPages } from './payform-pages';
+export { ConfrimpayPages } from './confrimpay-pages';
+export { PaySuccessPages } from './pay-success';
+export { SplashScreenPages } from './splash-screen-pages';
+export { AuthPhonePages } from './auth-phone-pages';
+export { AuthOtpPages } from './auth-otp-pages';
+export { AuthPasswordPages } from './auth-password-pages';
+export { AuthEndPages } from './auth-end-pages';

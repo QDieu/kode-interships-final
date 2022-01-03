@@ -1,0 +1,1 @@
+export {ConfirmPayTemplate} from './confirmpay-template'

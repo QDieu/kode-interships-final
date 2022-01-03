@@ -1,0 +1,1 @@
+export {categoryMobileContainer} from './categoryMobileContainer'

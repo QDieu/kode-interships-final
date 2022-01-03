@@ -1,0 +1,1 @@
+export {PayformTemplate} from './payform-template'
