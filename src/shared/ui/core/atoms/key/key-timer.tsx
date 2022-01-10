@@ -12,19 +12,20 @@ const Wrapper = styled.TouchableOpacity`
 type TProps = {
   text: string;
   children?: React.ReactNode;
-  onPressKey?: () => void;
+  repeatRequest: () => void;
 };
 
-export const KeyTimer = ({ text, onPressKey }: TProps) => {
-  const [minutes, setMinutes] = useState(2);
-  const [seconds, setSeconds] = useState(59);
+export const KeyTimer = ({ text, repeatRequest }: TProps) => {
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(30);
   const [done, setDone] = useState(false);
   const foo = useRef<number>();
 
+  function tick() {
+    setSeconds(prevSeconds => prevSeconds - 1);
+  }
+
   useEffect(() => {
-    function tick() {
-      setSeconds(prevSeconds => prevSeconds - 1);
-    }
     foo.current = window.setInterval(() => tick(), 1000);
     return () => {
       clearInterval(foo.current);
@@ -48,7 +49,11 @@ export const KeyTimer = ({ text, onPressKey }: TProps) => {
 
   const onPress = () => {
     if (done) {
-      if (onPressKey !== undefined) onPressKey();
+      repeatRequest();
+      setDone(false);
+      setMinutes(2);
+      setSeconds(59);
+      foo.current = window.setInterval(() => tick(), 1000);
     }
   };
 

@@ -85,11 +85,11 @@ export const AuthPhoneInputConnector = ({ navigation }: TProps) => {
                 phone: valueNumber,
               });
               navigation.navigate('otp', {});
-            } else console.log('Окно ошибки');
+            } else navigation.navigate('error', {});
           })
           .catch(err => {
             setIsLoading(false);
-            console.log(err);
+            navigation.navigate('error', {});
           });
       }, 1000);
     }

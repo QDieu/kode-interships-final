@@ -7,3 +7,4 @@ export { AuthPhonePages } from './auth-phone-pages';
 export { AuthOtpPages } from './auth-otp-pages';
 export { AuthPasswordPages } from './auth-password-pages';
 export { AuthEndPages } from './auth-end-pages';
+export { AuthErrorPages } from './auth-error-page';

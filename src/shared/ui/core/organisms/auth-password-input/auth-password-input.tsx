@@ -38,16 +38,18 @@ type TProps = {
   password: string;
   onChangeText: (text: string) => void;
   checkData: () => void;
+  quitAlert: () => void;
 };
 
 export const AuthPasswordInput = ({
   password,
   onChangeText,
   checkData,
+  quitAlert,
 }: TProps) => {
   return (
     <Wrapper>
-      <TouchWrapper activeOpacity={0.7}>
+      <TouchWrapper activeOpacity={0.7} onPress={() => quitAlert()}>
         <Icons.Cancel color={'#fff'} />
       </TouchWrapper>
       <LogoTop>

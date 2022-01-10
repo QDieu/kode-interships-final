@@ -3,6 +3,8 @@ import React from 'react';
 import { AuthPhoneInputConnector, AuthOtpConnector } from '.';
 import { AuthEndConnector } from './auth-end';
 import { TParamsEndAuth } from './auth-end/types';
+import { AuthErrorConnector } from './auth-error';
+import { TParamsErrorAuth } from './auth-error/types';
 import { TParamsOtp } from './auth-otp/types';
 import { AuthPasswordConnector } from './auth-password';
 import { TParamsPassword } from './auth-password/types';
@@ -13,6 +15,7 @@ export type TNavigationParamsList = {
   otp: TParamsOtp;
   password: TParamsPassword;
   end: TParamsEndAuth;
+  error: TParamsErrorAuth;
 };
 
 const Stack = createNativeStackNavigator<TNavigationParamsList>();
@@ -47,6 +50,14 @@ export const AuthStack = () => {
       <Stack.Screen
         name="end"
         component={AuthEndConnector}
+        options={({ navigation }) => ({
+          navigation: navigation,
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name="error"
+        component={AuthErrorConnector}
         options={({ navigation }) => ({
           navigation: navigation,
           headerShown: false,

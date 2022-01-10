@@ -11,6 +11,7 @@ import { Delete } from './delete/delete';
 import { Lock } from './lock/lock';
 import { Eye } from './eye/eye';
 import { AuthSuccess } from './auth-success/auth-success';
+import { Error } from './error/error';
 
 export const Icons = {
   BankCard,
@@ -26,4 +27,5 @@ export const Icons = {
   Lock,
   Eye,
   AuthSuccess,
+  Error,
 };

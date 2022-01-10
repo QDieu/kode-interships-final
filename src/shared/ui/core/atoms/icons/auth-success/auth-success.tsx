@@ -1,13 +1,5 @@
 import * as React from 'react';
-import Svg, {
-  Circle,
-  Defs,
-  EMaskUnits,
-  G,
-  Mask,
-  Path,
-  Rect,
-} from 'react-native-svg';
+import Svg, { G, Mask, Path, Rect } from 'react-native-svg';
 
 type Props = {
   width?: number;

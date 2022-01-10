@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthPasswordPages } from '@shared/ui/core/pages';
 import { useStore } from 'effector-react';
 import { useState } from 'react';
+import { Alert } from 'react-native';
 import { TNavigationParamsList } from '../auth-stack';
 
 type TProps = NativeStackScreenProps<TNavigationParamsList, 'password'>;
@@ -13,6 +14,23 @@ export const AuthPasswordConnector = ({ navigation }: TProps) => {
   const guestToken = useStore($guessToken);
 
   const onChangeText = (text: string) => setPassword(text);
+
+  const quitAlert = () => {
+    Alert.alert('Вы точно хотите выйти?', '', [
+      {
+        text: 'Выход',
+        onPress: () => {
+          navigation.popToTop();
+          navigation.navigate('phone', {});
+        },
+      },
+      {
+        text: 'Отмена',
+        onPress: () => {},
+        style: 'cancel',
+      },
+    ]);
+  };
 
   const checkData = () => {
     if (password.length < 5)
@@ -44,11 +62,11 @@ export const AuthPasswordConnector = ({ navigation }: TProps) => {
         .then(data => {
           if (data.accessToken && data.refreshToken)
             navigation.navigate('end', {});
-          else console.log('Окно ошибки');
+          else navigation.navigate('error', {});
         })
 
         .catch(err => {
-          console.log(err);
+          navigation.navigate('error', {});
         });
     }
   };
@@ -59,6 +77,7 @@ export const AuthPasswordConnector = ({ navigation }: TProps) => {
         password={password}
         onChangeText={onChangeText}
         checkData={checkData}
+        quitAlert={quitAlert}
       />
     </>
   );

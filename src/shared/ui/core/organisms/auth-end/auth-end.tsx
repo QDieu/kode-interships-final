@@ -7,13 +7,15 @@ const Wrapper = styled.View`
   background-color: #352f3d;
 `;
 
-type TProps = {};
+type TProps = {
+  checkData: () => void;
+};
 
-export const AuthEnd = ({}: TProps) => {
+export const AuthEnd = ({ checkData }: TProps) => {
   return (
     <Wrapper>
       <AuthSuccess />
-      <Button text={'Продолжить'} checkData={() => {}} />
+      <Button text={'Продолжить'} checkData={checkData} />
     </Wrapper>
   );
 };

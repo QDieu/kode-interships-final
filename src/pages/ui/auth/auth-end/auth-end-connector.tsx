@@ -1,3 +1,4 @@
+import { setAuthUser } from '@bll/models/app-model/app-store';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthEndPages } from '@shared/ui/core/pages';
 import { TNavigationParamsList } from '../auth-stack';
@@ -5,6 +6,9 @@ import { TNavigationParamsList } from '../auth-stack';
 type TProps = NativeStackScreenProps<TNavigationParamsList, 'end'>;
 
 export const AuthEndConnector = ({ navigation }: TProps) => {
-  console.log('ya tut');
-  return <AuthEndPages />;
+  const checkData = () => {
+    setAuthUser(true);
+  };
+
+  return <AuthEndPages checkData={checkData} />;
 };

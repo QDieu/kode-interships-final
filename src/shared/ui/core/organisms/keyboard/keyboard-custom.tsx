@@ -17,18 +17,20 @@ type TProps = {
   keyArray: Array<string>;
   onPressKey: (value: string) => void;
   onPressKeyTimer?: () => void;
+  repeatRequest: () => void;
 };
 
 export const KeyboardCustom = ({
   keyArray,
   onPressKey,
   onPressKeyTimer,
+  repeatRequest,
 }: TProps) => {
   return (
     <Wrapper>
       {keyArray.map((item, index) =>
         item == 'Again' ? (
-          <KeyTimer text={item} key={index} onPressKey={onPressKeyTimer} />
+          <KeyTimer text={item} key={index} repeatRequest={repeatRequest} />
         ) : index + 1 !== keyArray.length ? (
           <Key text={item} key={index} onPressKey={onPressKey} />
         ) : (

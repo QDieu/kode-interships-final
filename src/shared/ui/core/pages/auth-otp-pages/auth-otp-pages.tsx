@@ -10,6 +10,7 @@ type TProps = {
   symbol: string;
   checkData: (value: string) => void;
   error: [number, boolean];
+  repeatRequest: () => void;
 };
 
 export const AuthOtpPages = ({
@@ -18,12 +19,19 @@ export const AuthOtpPages = ({
   symbol,
   checkData,
   error,
+  repeatRequest,
 }: TProps) => {
   return (
     <>
       <AuthOtpTemplate
         top={<OtpInput symbol={symbol} checkData={checkData} error={error} />}
-        bottom={<KeyboardCustom keyArray={keyArray} onPressKey={onPressKey} />}
+        bottom={
+          <KeyboardCustom
+            keyArray={keyArray}
+            onPressKey={onPressKey}
+            repeatRequest={repeatRequest}
+          />
+        }
       />
     </>
   );

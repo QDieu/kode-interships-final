@@ -1,4 +1,8 @@
-import { $otp, setGuessToken } from '@bll/models/auth-model/auth-store';
+import {
+  $otp,
+  setGuessToken,
+  setOtpData,
+} from '@bll/models/auth-model/auth-store';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthOtpPages } from '@shared/ui/core/pages';
 import { useStore } from 'effector-react';
@@ -66,11 +70,11 @@ export const AuthOtpConnector = ({ navigation }: TProps) => {
           if (data.guestToken != undefined) {
             setGuessToken(data.guestToken);
             navigation.navigate('password', {});
-          } else console.log('Окно ошибки');
+          } else navigation.navigate('error', {});
         })
         .catch(err => {
           setIsLoading(false);
-          console.log(err);
+          navigation.navigate('error', {});
         });
     } else {
       setError([--error[0], true]);
@@ -81,6 +85,34 @@ export const AuthOtpConnector = ({ navigation }: TProps) => {
   const pressKey = (value: string) => {
     if (value == '') setSymbol(' ');
     else setSymbol(value);
+  };
+
+  const repeatRequest = () => {
+    fetch(
+      `https://stoplight.io/mocks/kode-education/kode-bank/27774162/api/auth/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer 123',
+        },
+        body: JSON.stringify(otp.phone),
+      },
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (data.otpCode != undefined) {
+          setOtpData({
+            otpCode: data.otpCode,
+            otpId: data.otpId,
+            phone: otp.phone,
+          });
+          navigation.navigate('otp', {});
+        } else navigation.navigate('error', {});
+      })
+      .catch(err => {
+        navigation.navigate('error', {});
+      });
   };
 
   return (
@@ -101,6 +133,7 @@ export const AuthOtpConnector = ({ navigation }: TProps) => {
         symbol={symbol}
         checkData={checkData}
         error={error}
+        repeatRequest={repeatRequest}
       />
     </>
   );

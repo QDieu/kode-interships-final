@@ -10,3 +10,4 @@ export { Logo } from './logo';
 export { OtpInput } from './otp-input';
 export { InputPassword } from './input-password';
 export { AuthSuccess } from './auth-success';
+export { AuthError } from './auth-error';

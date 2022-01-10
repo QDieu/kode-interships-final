@@ -78,7 +78,6 @@ export const OtpInput = ({ symbol, checkData, error }: TProps) => {
       activeRefs + 1 === values.length &&
       values.join('').replace(/\s/g, '').length == 4
     ) {
-      console.log(values.join(''));
       checkData(values.join(''));
     }
   }, [values]);
