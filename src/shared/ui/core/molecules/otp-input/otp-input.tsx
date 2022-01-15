@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { styled } from '@shared/ui/theme';
-import { TextInput, TouchableWithoutFeedback } from 'react-native';
+import { Text } from 'react-native';
 import { Typography } from '../../typography';
 
-type StyleProps = {
+type TStyleProps = {
   error: boolean;
 };
 
@@ -16,71 +16,51 @@ const Wrapper = styled.View`
 
 const InputWrapper = styled.View`
   margin-top: ${({ theme }) => theme.spacing(3)}px;
+  margin-left: ${({ theme }) => theme.spacing(1)}px;
   flex-direction: row;
 `;
 
 const NumberWrapper = styled.View`
   background-color: #403a47;
-  padding: ${({ theme }) => theme.spacing(2)}px 0;
+  padding: ${({ theme }) => theme.spacing(0.5)}px 0;
   width: ${({ theme }) => theme.spacing(5)}px;
   height: ${({ theme }) => theme.spacing(6)}px;
   border-radius: ${({ theme }) => theme.spacing(1.5)}px;
   margin-right: ${({ theme }) => theme.spacing(1)}px;
 `;
 
-const InputCustom = styled.TextInput<StyleProps>`
-  font-family: ${({ theme }) => theme.typography['subtitle'].fontFamily};
-  font-weight: 600;
-  font-size: 20;
-  line-height: 25;
-  text-align: center;
-  color: ${({ error }) => (error ? '#FB6176' : '#fff')};
-`;
-
 const Dash = styled.View`
   width: 10px;
   height: 2px;
-  background-color: #fff;
+  background-color: #706D76;
   margin-right: ${({ theme }) => theme.spacing(1)}px
   margin-top: auto;
   margin-bottom: auto;
 `;
 
+const TextWrapper = styled.Text<TStyleProps>`
+  font-size: 20px;
+  line-height: 25px;
+  color: ${({ error }) => (error ? '#FE626A' : '#fff')};
+  text-align: center;
+  padding-top: ${({ theme }) => theme.spacing(1)}px;
+`;
+
+const DashLine = styled.View`
+  margin-top: ${({ theme }) => theme.spacing(1)}px;
+  margin-left: ${({ theme }) => theme.spacing(1)}px;
+  width: 24px;
+  border-radius: 16px;
+  border: 1.5px solid #6c78e6;
+`;
+
 type TProps = {
-  symbol: string;
-  checkData: (value: string) => void;
+  otp: string;
   error: [number, boolean];
 };
 
-export const OtpInput = ({ symbol, checkData, error }: TProps) => {
+export const OtpInput = ({ otp, error }: TProps) => {
   const [values, setValues] = React.useState(Array(5).fill(''));
-  const [activeRefs, setActiveRefs] = React.useState(0);
-
-  const inputRefs: Array<TextInput | null> = [];
-
-  useEffect(() => {
-    setValues(prevState => {
-      const newState = [...prevState];
-      newState[activeRefs] = symbol;
-      return newState;
-    });
-    if (symbol != ' ' && symbol != '') {
-      if (activeRefs + 1 == Math.floor(values.length / 2)) {
-        inputRefs[activeRefs + 2]?.focus();
-      } else {
-        inputRefs[activeRefs + 1]?.focus();
-      }
-    }
-  }, [symbol]);
-
-  useEffect(() => {
-    if (
-      activeRefs + 1 === values.length &&
-      values.join('').replace(/\s/g, '').length == 4
-    ) {
-      checkData(values.join(''));
-    }
-  }, [values]);
 
   return (
     <Wrapper>
@@ -99,23 +79,26 @@ export const OtpInput = ({ symbol, checkData, error }: TProps) => {
               <Dash />
             ) : (
               <NumberWrapper>
-                <InputCustom
-                  showSoftInputOnFocus={false}
-                  onFocus={() => setActiveRefs(i)}
-                  keyboardType="numeric"
-                  value={values[i]}
-                  ref={input => (inputRefs[i] = input)}
-                  editable={true}
-                  maxLength={1}
-                  error={error[1]}
-                />
+                {i < Math.floor(values.length / 2) ? (
+                  <TextWrapper error={error[1]}>{otp[i]}</TextWrapper>
+                ) : (
+                  <TextWrapper error={error[1]}>{otp[i - 1]}</TextWrapper>
+                )}
+
+                {/* Костыль для отображения черточки снизу */}
+                {i == otp.length + +(i > Math.floor(values.length / 2)) ? (
+                  <DashLine />
+                ) : null}
               </NumberWrapper>
             )}
           </>
         ))}
       </InputWrapper>
       {error[1] ? (
-        <Typography variant="caption2" style={{ color: '#FE626A' }}>
+        <Typography
+          variant="caption2"
+          style={{ color: '#FE626A', marginTop: 8 }}
+        >
           {`Неверный код. Осталось ${error[0]} попытки`}
         </Typography>
       ) : null}

@@ -20,6 +20,7 @@ export type TPayformTemplate = {
   inputNumberForm: React.ReactNode;
   inputSumContainer: React.ReactNode;
   button: React.ReactNode;
+  keyboardView: boolean;
 };
 
 export const PayformTemplate = ({
@@ -27,11 +28,12 @@ export const PayformTemplate = ({
   inputNumberForm,
   inputSumContainer,
   button,
+  keyboardView,
 }: TPayformTemplate) => {
   return (
     <KeyboardAvoidingView
       behavior={'position'}
-      enabled={Platform.OS === 'ios'}
+      enabled={Platform.OS === 'ios' && keyboardView}
       keyboardVerticalOffset={64}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

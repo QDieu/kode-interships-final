@@ -32,9 +32,10 @@ const CInput = styled.TextInput`
 type TProps = {
   value?: string;
   onChangeTextSum: (value: string) => void;
+  onFocusSum: () => void;
 };
 
-export const InputSum = ({ value, onChangeTextSum }: TProps) => {
+export const InputSum = ({ value, onChangeTextSum, onFocusSum }: TProps) => {
   return (
     <Wrapper>
       <Typography
@@ -57,6 +58,7 @@ export const InputSum = ({ value, onChangeTextSum }: TProps) => {
             placeholderTextColor="#fff"
             value={value}
             onChangeText={value => onChangeTextSum(value)}
+            onFocus={onFocusSum}
           />
           <Typography
             variant="title"

@@ -31,6 +31,7 @@ type TProps = {
   flagKeyboard: boolean;
   dismissKeyboard: () => void;
   isLoading: boolean;
+  resetTextNumber: () => void;
 };
 
 export const AuthPhoneInput = ({
@@ -39,6 +40,7 @@ export const AuthPhoneInput = ({
   flagKeyboard,
   dismissKeyboard,
   isLoading,
+  resetTextNumber,
 }: TProps) => {
   let mask = '+{7} ({9}00) 000 00 00';
   const keyboard = false;
@@ -63,6 +65,7 @@ export const AuthPhoneInput = ({
             keyboard={keyboard}
             error={error}
             isLoading={isLoading}
+            resetTextNumber={resetTextNumber}
           />
         </InputWrapper>
       </Wrapper>

@@ -14,3 +14,12 @@ $app.on(setViewBar, (state, payload) => {
 });
 
 $authUser.on(setAuthUser, (state, payload) => payload);
+
+export const setKeyboardViewPayment = createEvent<boolean>();
+
+export const $keyboardViewPayment = createStore<boolean>(false).on(
+  setKeyboardViewPayment,
+  (state, payload) => {
+    return payload;
+  },
+);

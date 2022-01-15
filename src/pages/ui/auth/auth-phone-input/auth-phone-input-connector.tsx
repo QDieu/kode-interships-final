@@ -35,7 +35,6 @@ export const AuthPhoneInputConnector = ({ navigation }: TProps) => {
 
   const flagKeyboard = useStore($auth).flagKeyboard;
   const onFocusNumber = () => {
-    if (valueNumber == '') setValueNumber('+79');
     setKeyboardView(true);
   };
 
@@ -46,21 +45,32 @@ export const AuthPhoneInputConnector = ({ navigation }: TProps) => {
   };
 
   const onPressKey = (value: string) => {
+    if (valueNumber == '') {
+      value = '+79' + value;
+    }
     if (value === 'Отмена') dismissKeyboard();
     else if (value == '')
       setValueNumber(valueNumber.slice(0, valueNumber.length - 1));
-    else setValueNumber(valueNumber + value);
+    else if (valueNumber.length < 12) {
+      setValueNumber(valueNumber + value);
+      console.log(valueNumber);
+    }
+  };
+
+  const resetTextNumber = () => {
+    setValueNumber('');
   };
 
   const [isLoading, setIsLoading] = useState(false);
 
   const checkData = () => {
-    if (valueNumber.length != 12)
+    if (valueNumber.length != 12) {
+      console.log(valueNumber);
       addError({
         text: 'Пожалуйста, убедитесь, что вы правильно ввели номер телефона',
         delay: 2000,
       });
-    else {
+    } else {
       setIsLoading(true);
       //искуственная задержка
       setTimeout(() => {
@@ -105,6 +115,7 @@ export const AuthPhoneInputConnector = ({ navigation }: TProps) => {
       dismissKeyboard={dismissKeyboard}
       onPressKey={onPressKey}
       isLoading={isLoading}
+      resetTextNumber={resetTextNumber}
     />
   );
 };

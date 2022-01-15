@@ -13,6 +13,7 @@ type TProps = {
   dismissKeyboard: () => void;
   onPressKey: (value: string) => void;
   isLoading: boolean;
+  resetTextNumber: () => void;
 };
 
 export const AuthPhonePages = ({
@@ -24,6 +25,7 @@ export const AuthPhonePages = ({
   dismissKeyboard,
   onPressKey,
   isLoading,
+  resetTextNumber,
 }: TProps) => {
   return (
     <AuthPhoneTemplate
@@ -34,6 +36,7 @@ export const AuthPhonePages = ({
           flagKeyboard={flagKeyboard}
           dismissKeyboard={dismissKeyboard}
           isLoading={isLoading}
+          resetTextNumber={resetTextNumber}
         />
       }
       bottom={
@@ -46,7 +49,11 @@ export const AuthPhonePages = ({
               checkData={checkData}
               flagKeyboard={flagKeyboard}
             />
-            <KeyboardCustom keyArray={keyArray} onPressKey={onPressKey} />
+            <KeyboardCustom
+              keyArray={keyArray}
+              onPressKey={onPressKey}
+              repeatRequest={() => {}}
+            />
           </>
         )
       }

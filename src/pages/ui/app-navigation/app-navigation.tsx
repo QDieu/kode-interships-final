@@ -45,7 +45,7 @@ export const AppNavigation = () => {
           <Tab.Navigator
             screenOptions={{
               tabBarStyle: {
-                display: tabBar ? 'flex' : 'flex',
+                display: tabBar ? 'flex' : 'none',
                 backgroundColor: '#312C39',
                 borderTopColor: '#312C39',
               },

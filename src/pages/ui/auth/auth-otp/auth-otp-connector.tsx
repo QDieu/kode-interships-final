@@ -6,7 +6,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthOtpPages } from '@shared/ui/core/pages';
 import { useStore } from 'effector-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, View } from 'react-native';
 import { TNavigationParamsList } from '../auth-stack';
 
@@ -83,9 +83,15 @@ export const AuthOtpConnector = ({ navigation }: TProps) => {
   };
 
   const pressKey = (value: string) => {
-    if (value == '') setSymbol(' ');
-    else setSymbol(value);
+    if (value == '')
+      setSymbol(prevState => prevState.slice(0, prevState.length - 1));
+    else if (symbol.length == 4) return;
+    else setSymbol(prevState => prevState + value);
   };
+
+  useEffect(() => {
+    if (symbol.length == 4) checkData(symbol);
+  }, [symbol]);
 
   const repeatRequest = () => {
     fetch(
@@ -130,8 +136,7 @@ export const AuthOtpConnector = ({ navigation }: TProps) => {
       <AuthOtpPages
         keyArray={array}
         onPressKey={pressKey}
-        symbol={symbol}
-        checkData={checkData}
+        otp={symbol}
         error={error}
         repeatRequest={repeatRequest}
       />

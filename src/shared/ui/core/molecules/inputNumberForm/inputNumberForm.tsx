@@ -58,15 +58,6 @@ export const InputNumberForm = ({
     <Wrapper>
       <WrapperInput>
         {left}
-        {/* <CInput
-          keyboardType="number-pad"
-          maxLength={18}
-          placeholder="Номер телефона"
-          placeholderTextColor="#706D76"
-          onFocus={onFocusNumber}
-          onChangeText={value => onChangeTextNumber(value)}
-          value={valueNumber}
-        /> */}
         <IMaskTextInput
           keyboardType="number-pad"
           showSoftInputOnFocus={keyboard}

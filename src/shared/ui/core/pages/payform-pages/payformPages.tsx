@@ -32,6 +32,7 @@ type TSumFunction = {
   onChangeTextSum: (sum: string) => void;
   valueSum: string;
   cashback: number;
+  onFocusSum: () => void;
 };
 
 type TChipsFunction = {
@@ -44,6 +45,7 @@ type TProps = {
   sumFunction: TSumFunction;
   chipsFunction: TChipsFunction;
   checkData: () => void;
+  keyboardView: boolean;
 };
 
 export const PayformPages: React.FC<TProps> = ({
@@ -52,9 +54,11 @@ export const PayformPages: React.FC<TProps> = ({
   sumFunction,
   chipsFunction,
   checkData,
+  keyboardView,
 }) => {
   return (
     <PayformTemplate
+      keyboardView={keyboardView}
       cardInfo={
         <CardInfo
           left={cardInfoLeft}
@@ -78,6 +82,7 @@ export const PayformPages: React.FC<TProps> = ({
             <InputSum
               value={sumFunction.valueSum}
               onChangeTextSum={sumFunction.onChangeTextSum}
+              onFocusSum={sumFunction.onFocusSum}
             />
           }
           down={

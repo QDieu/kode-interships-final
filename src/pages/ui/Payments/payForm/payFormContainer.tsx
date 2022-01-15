@@ -5,6 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { TNavigationParamsList } from '../stackPayments';
 import { useQuery } from 'react-query';
+import { useStore } from 'effector-react';
+import {
+  $keyboardViewPayment,
+  setKeyboardViewPayment,
+} from '@bll/models/app-model/app-store';
 
 type TProps = NativeStackScreenProps<TNavigationParamsList, 'payform'>;
 
@@ -25,6 +30,8 @@ export const PayFormContainer: React.FC<TProps> = ({ navigation, route }) => {
       headerStyle: { backgroundColor: '#312C39' },
     });
   }, [route, navigation]);
+
+  const keyboardView = useStore($keyboardViewPayment);
 
   const { data } = useQuery(
     `services${route.params.id}`,
@@ -59,7 +66,12 @@ export const PayFormContainer: React.FC<TProps> = ({ navigation, route }) => {
   const [valueNumber, setValueNumber] = useState('');
   const [valueSum, setValueSum] = useState('');
   const onFocusNumber = () => {
+    setKeyboardViewPayment(false);
     if (!valueNumber) setValueNumber('+7');
+  };
+
+  const onFocusSum = () => {
+    setKeyboardViewPayment(true);
   };
 
   const onChangeTextNumber = (number: string) => {
@@ -81,7 +93,7 @@ export const PayFormContainer: React.FC<TProps> = ({ navigation, route }) => {
   const checkData = () => {
     if (valueNumber.length !== 16)
       addError({ text: 'Проверьте номер телефона', delay: 3000 });
-    else if (!(+valueSum > 1 && +valueSum < 2000))
+    else if (!(+valueSum > 1 && +valueSum < 20000))
       addError({ text: 'Проверьте сумму', delay: 3000 });
     else
       navigation.navigate('confirmpay', {
@@ -104,7 +116,8 @@ export const PayFormContainer: React.FC<TProps> = ({ navigation, route }) => {
   const sumFunction = {
     onChangeTextSum,
     valueSum,
-    cashback: cashback,
+    cashback,
+    onFocusSum,
   };
 
   const chipsFunction = {
@@ -118,8 +131,7 @@ export const PayFormContainer: React.FC<TProps> = ({ navigation, route }) => {
       sumFunction={sumFunction}
       chipsFunction={chipsFunction}
       checkData={checkData}
+      keyboardView={keyboardView}
     />
   );
 };
-
-const styles = StyleSheet.create({});

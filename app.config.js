@@ -7,7 +7,7 @@ export default ({ config }) => {
   //
   // Потому здесь он запускается из отдельного файла, чтобы
   // по возможности не мешать основной работе приложения.
-  if (false) {
+  if (true) {
     return { ...config, entryPoint: './storybook' };
   }
   return config;
